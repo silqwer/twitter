@@ -1,5 +1,3 @@
-import { redirect } from "next/navigation";
-
-export default function Login() {
-  redirect("/i/flow/login");
+export default function LoginPage() {
+  return <div>로그인 모달</div>;
 }

@@ -3,5 +3,5 @@ type Props = {
 };
 
 export default function AfterLoginLayout({ children }: Props) {
-  return <div>AfterLoginLayout {children}</div>;
+  return <div>{children}</div>;
 }
