@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import styles from "@/app/page.module.css";
 
 type Props = {
   children: ReactNode;
@@ -6,5 +7,10 @@ type Props = {
 };
 
 export default function BeforeLoginLayout({ children, modal }: Props) {
-  return <div>{children}</div>;
+  return (
+    <div className={styles.container}>
+      {children}
+      {modal}
+    </div>
+  );
 }
