@@ -1,11 +1,17 @@
 "use client";
 
-import Link from "next/link";
+import style from "./navMenu.module.css";
 import { useSelectedLayoutSegment } from "next/navigation";
-import style from "@/app/(afterLogin)/_component/navMenu.module.css";
+import Link from "next/link";
 
 export default function NavMenu() {
   const segment = useSelectedLayoutSegment();
+  console.log(segment);
+  const me = {
+    // 임시로 내 정보 있는것처럼
+    id: "zerohch0",
+  };
+
   return (
     <>
       <li>
@@ -113,7 +119,7 @@ export default function NavMenu() {
           </div>
         </Link>
       </li>
-      {/* {me?.id && (
+      {me?.id && (
         <li>
           <Link href={`/${me?.id}`}>
             <div className={style.navPill}>
@@ -149,7 +155,7 @@ export default function NavMenu() {
             </div>
           </Link>
         </li>
-      )} */}
+      )}
     </>
   );
 }
