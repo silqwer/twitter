@@ -1,59 +1,32 @@
+"use client";
+
 import BackButton from "@/app/(afterLogin)/_component/BackButton";
 import style from "./signUp.module.css";
-import { redirect, useRouter } from "next/navigation";
-import { useState } from "react";
+import onSubmit from "@/app/(beforeLogin)/_lib/signup";
+import { useFormState, useFormStatus } from "react-dom";
 
 export default function SignUpModal() {
-  const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [image, setImage] = useState("");
-  const [imageFile, setImageFile] = useState<File>();
+  const [state, formAction] = useFormState(onSubmit, { message: "" });
+  const { pending } = useFormStatus();
 
-  const router = useRouter();
-
-  const submit = async (formData: FormData) => {
-    'use server';
-    
-    if(!formData.get("id")) {
-      return {message: 'no_id'};
+  const showMessage = (message: string | null | undefined) => {
+    if (message === "no_id") {
+      return "아이디를 입력하세요.";
     }
-
-    if(!formData.get("name")) {
-      return {message: 'no_name'};
+    if (message === "no_name") {
+      return "닉네임을 입력하세요.";
     }
-
-
-    if(!formData.get("password")) {
-      return {message: 'no_password'}
+    if (message === "no_password") {
+      return "비밀번호를 입력하세요.";
     }
-
-    if(!formData.get("image")) {
-      return {message: 'no_image'}
+    if (message === "no_image") {
+      return "이미지를 업로드하세요.";
     }
-
-    let shouldRedirect = false;
-
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}`, {
-        method: "POST",
-        body: formData,
-        credentials: "include",
-      });
-
-      if(response.status === 403) {
-        return {message: 'already_exist'};
-      }
-
-      shouldRedirect = true;
-    } catch (error) {
-      console.error(error);
-      return;
+    if (message === "user_exists") {
+      return "이미 사용 중인 아이디입니다.";
     }
-    if(shouldRedirect){
-      redirect("/home");
-    }
-  }
+    return "";
+  };
 
   return (
     <>
@@ -63,7 +36,7 @@ export default function SignUpModal() {
             <BackButton />
             <div>계정을 생성하세요.</div>
           </div>
-          <form action={submit}>
+          <form action={formAction}>
             <div className={style.modalBody}>
               <div className={style.inputDiv}>
                 <label className={style.inputLabel} htmlFor="id">
@@ -75,7 +48,6 @@ export default function SignUpModal() {
                   className={style.input}
                   type="text"
                   placeholder=""
-                  value={id}
                   required
                 />
               </div>
@@ -89,7 +61,6 @@ export default function SignUpModal() {
                   className={style.input}
                   type="text"
                   placeholder=""
-                  value={nickname}
                   required
                 />
               </div>
@@ -103,7 +74,6 @@ export default function SignUpModal() {
                   className={style.input}
                   type="password"
                   placeholder=""
-                  value={password}
                   required
                 />
               </div>
@@ -122,11 +92,14 @@ export default function SignUpModal() {
               </div>
             </div>
             <div className={style.modalFooter}>
-              
-              
-              <button type="submit" className={style.actionButton}>
+              <button
+                type="submit"
+                className={style.actionButton}
+                disabled={pending}
+              >
                 가입하기
               </button>
+              <div className={style.error}>{showMessage(state?.message)}</div>
             </div>
           </form>
         </div>
