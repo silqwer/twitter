@@ -1,18 +1,42 @@
 "use client";
 
 import styles from "./login.module.css";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 export default function LoginModal() {
-  const [id, setId] = useState();
-  const [password, setPassword] = useState();
-  const [message, setMessage] = useState();
-  const onSubmit = () => {};
-  const onClickClose = () => {};
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const router = useRouter();
 
-  const onChangeId = () => {};
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      await signIn("credentials", {
+        username: id,
+        password,
+        redirect: false,
+      });
+      setMessage("");
+      router.replace("/home");
+    } catch (error) {
+      console.error(error);
+      setMessage("아이디 또는 비밀번호가 일치하지 않습니다.");
+    }
+  };
+  const onClickClose = () => {
+    router.back();
+  };
 
-  const onChangePassword = () => {};
+  const onChangeId = (e: ChangeEvent<HTMLInputElement>) => {
+    setId(e.target.value);
+  };
+
+  const onChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
 
   return (
     <div className={styles.modalBackground}>
@@ -61,7 +85,7 @@ export default function LoginModal() {
               />
             </div>
           </div>
-          <div className={styles.message}>{message}</div>
+          <div className={styles.message}>{message} dddd</div>
           <div className={styles.modalFooter}>
             <button className={styles.actionButton} disabled={!id && !password}>
               로그인하기

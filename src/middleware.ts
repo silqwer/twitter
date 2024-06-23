@@ -1,11 +1,17 @@
-import { auth } from "./auth";
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { getToken } from "next-auth/jwt";
 
-export async function middleware() {
-  const session = await auth();
-  if (!session) {
+const NEXTAUTH_SECRET = `${process.env.NEXTAUTH_SECRET}`;
+
+export async function middleware(req: NextRequest) {
+  const token = await getToken({ req, secret: NEXTAUTH_SECRET });
+
+  if (!token) {
     return NextResponse.redirect("http://localhost:3000/i/flow/login");
   }
+
+  return NextResponse.next();
 }
 
 // See "Matching Paths" below to learn more
