@@ -14,11 +14,13 @@ export default function LoginModal() {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await signIn("credentials", {
+      const result = await signIn("credentials", {
         username: id,
         password,
         redirect: false,
       });
+      console.log("===== result ====");
+      console.log(result);
       setMessage("");
       router.replace("/home");
     } catch (error) {

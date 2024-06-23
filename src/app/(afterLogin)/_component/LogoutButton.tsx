@@ -1,25 +1,36 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
+import { signOut, useSession } from "next-auth/react";
 import style from "./logoutButton.module.css";
+import { useRouter } from "next/navigation";
 
 export default function LogoutButton() {
-  const me = {
-    // 임시로 내 정보 있는것처럼
-    id: "zerohch0",
-    nickname: "제로초",
-    image: "/5Udwvqim.jpg",
+  // useSession()은 세션 정보를 가져오는 클라이언트 hook이다.
+  const { data } = useSession();
+
+  const router = useRouter();
+  const onLogout = () => {
+    signOut({ redirect: false }).then(() => {
+      router.replace("/");
+    });
   };
 
-  const onLogout = () => {};
+  if (!data) {
+    return null;
+  }
 
   return (
     <button className={style.logOutButton} onClick={onLogout}>
       <div className={style.logOutUserImage}>
-        <img src={me.image} alt={me.id} />
+        <img
+          src={data.user?.image as string}
+          alt={data.user?.name || "프로필 이미지"}
+        />
       </div>
       <div className={style.logOutUserName}>
-        <div>{me.nickname}</div>
-        <div>@{me.id}</div>
+        <div>{data.user?.name}</div>
+        {/* <div>@{data.user?.id}</div> */}
       </div>
     </button>
   );

@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export default NextAuth({
+export const authOptions = {
   pages: {
     signIn: "/i/flow/login",
     newUser: "/i/flow/signup",
@@ -19,7 +19,7 @@ export default NextAuth({
         }
 
         const authResponse = await fetch(
-          `${process.env.NEXT_AUTH_URL}/api/login`,
+          `${process.env.NEXTAUTH_URL}/api/login`,
           {
             method: "POST",
             headers: {
@@ -42,8 +42,9 @@ export default NextAuth({
           const { id, nickname, image } = response.data;
           return {
             id,
-            nickname,
+            name: nickname,
             image,
+            ...response,
           };
         }
 
@@ -51,6 +52,8 @@ export default NextAuth({
       },
     }),
   ],
-  secret: `${process.env.NEXT_AUTH_SECRET}`,
+  secret: `${process.env.NEXTAUTH_SECRET}`,
   debug: true,
-});
+};
+
+export default NextAuth(authOptions);

@@ -5,10 +5,15 @@ import { getToken } from "next-auth/jwt";
 const NEXTAUTH_SECRET = `${process.env.NEXTAUTH_SECRET}`;
 
 export async function middleware(req: NextRequest) {
+  console.log("==== NEXTAUTH_SECRET ====");
+  console.log(NEXTAUTH_SECRET);
   const token = await getToken({ req, secret: NEXTAUTH_SECRET });
-
+  console.log("==== TOKEN ====");
+  console.log(token);
   if (!token) {
-    return NextResponse.redirect("http://localhost:3000/i/flow/login");
+    return NextResponse.redirect(
+      new URL("http://localhost:3000/i/flow/login", req.url),
+    );
   }
 
   return NextResponse.next();
