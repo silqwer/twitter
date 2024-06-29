@@ -1,15 +1,16 @@
-import { ReactNode } from "react";
-import style from "@/app/(afterLogin)/layout.module.css";
-import Link from "next/link";
-import Image from "next/image";
-import ZLogo from "../../../public/zlogo.png";
-import NavMenu from "@/app/(afterLogin)/_component/NavMenu";
-import LogoutButton from "@/app/(afterLogin)/_component/LogoutButton";
-import TrendSection from "@/app/(afterLogin)/_component/TrendSection";
 import FollowRecommend from "@/app/(afterLogin)/_component/FollowRecommend";
+import LogoutButton from "@/app/(afterLogin)/_component/LogoutButton";
+import NavMenu from "@/app/(afterLogin)/_component/NavMenu";
 import RightSearchZone from "@/app/(afterLogin)/_component/RightSearchZone";
-import { getServerSession } from "next-auth/next";
+import TrendSection from "@/app/(afterLogin)/_component/TrendSection";
+import style from "@/app/(afterLogin)/layout.module.css";
 import { authOptions } from "@/auth";
+import { getServerSession } from "next-auth/next";
+import Image from "next/image";
+import Link from "next/link";
+import { ReactNode } from "react";
+import ZLogo from "../../../public/zlogo.png";
+import RQProvider from "./_component/RQProvider";
 
 type Props = { children: ReactNode; modal: ReactNode };
 export default async function AfterLoginLayout({ children, modal }: Props) {
@@ -50,22 +51,24 @@ export default async function AfterLoginLayout({ children, modal }: Props) {
           </div>
         </section>
       </header>
-      <div className={style.rightSectionWrapper}>
-        <div className={style.rightSectionInner}>
-          <main className={style.main}>{children}</main>
-          <section className={style.rightSection}>
-            <RightSearchZone />
-            <TrendSection />
-            <div className={style.followRecommend}>
-              <h3>팔로우 추천</h3>
-              <FollowRecommend />
-              <FollowRecommend />
-              <FollowRecommend />
-            </div>
-          </section>
+      <RQProvider>
+        <div className={style.rightSectionWrapper}>
+          <div className={style.rightSectionInner}>
+            <main className={style.main}>{children}</main>
+            <section className={style.rightSection}>
+              <RightSearchZone />
+              <TrendSection />
+              <div className={style.followRecommend}>
+                <h3>팔로우 추천</h3>
+                <FollowRecommend />
+                <FollowRecommend />
+                <FollowRecommend />
+              </div>
+            </section>
+          </div>
         </div>
-      </div>
-      {modal}
+        {modal}
+      </RQProvider>
     </div>
   );
 }
