@@ -20,7 +20,7 @@ export default function ActionButtons({ white }: Props) {
         className={cx(
           style.commentButton,
           { [style.commented]: commented },
-          white && style.white
+          white && style.white,
         )}
       >
         <button onClick={onClickComment}>
@@ -36,7 +36,7 @@ export default function ActionButtons({ white }: Props) {
         className={cx(
           style.repostButton,
           reposted && style.reposted,
-          white && style.white
+          white && style.white,
         )}
       >
         <button onClick={onClickRepost}>

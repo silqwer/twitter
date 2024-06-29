@@ -101,7 +101,7 @@ export const handlers = [
       },
     ]);
   }),
-  http.get("/api/followingPosts", async ({ request }) => {
+  http.get("/api/followingPosts", async () => {
     await delay(3000);
     return HttpResponse.json([
       {

@@ -12,7 +12,7 @@
 }
 @media (prefers-color-scheme: dark) {
   .modalBackground {
-      background-color: rgba(91, 112, 131, 0.4);
+    background-color: rgba(91, 112, 131, 0.4);
   }
 }
 .modal {
@@ -45,17 +45,17 @@
 }
 @media all and (min-width: 687px) {
   .modal {
-      top: 5%;
-      min-width: 600px;
-      max-width: 600px;
-      height: 550px;
-      padding: 0;
+    top: 5%;
+    min-width: 600px;
+    max-width: 600px;
+    height: 550px;
+    padding: 0;
   }
   .modalHeader {
-      padding: 36px 80px 20px;
+    padding: 36px 80px 20px;
   }
   .modalBody {
-      padding: 0 80px;
+    padding: 0 80px;
   }
 }
 
@@ -109,7 +109,7 @@
   background-color: rgb(15, 20, 25);
 }
 .actionButton:hover {
-  background-color: rgb(39,44,48);
+  background-color: rgb(39, 44, 48);
 }
 
 .closeButton {
@@ -127,18 +127,18 @@
   justify-content: center;
 }
 .closeButton:hover {
-  background-color: rgba(15,20,25, 0.1);
+  background-color: rgba(15, 20, 25, 0.1);
 }
 @media all and (min-width: 687px) {
   .closeButton {
-      left: 16px;
+    left: 16px;
   }
 }
 @media (prefers-color-scheme: dark) {
   .closeButton {
-      background-color: black;
+    background-color: black;
   }
   .closeButton svg {
-      fill: white;
+    fill: white;
   }
 }
