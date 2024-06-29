@@ -11,5 +11,5 @@ export default function PostRecommends() {
     queryFn: getPostRecommends,
   });
 
-  return data.map((post: PostType) => <Post key={post.postId} post={post} />);
+  return data?.map((post: PostType) => <Post key={post.postId} post={post} />);
 }
