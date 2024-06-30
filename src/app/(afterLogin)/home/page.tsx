@@ -1,6 +1,6 @@
 import PostForm from "@/app/(afterLogin)/home/_component/PostForm";
-import PostRecommends from "@/app/(afterLogin)/home/_component/PostRecommends";
 import Tab from "@/app/(afterLogin)/home/_component/Tab";
+import TabDecider from "@/app/(afterLogin)/home/_component/TabDecider";
 import TabProvider from "@/app/(afterLogin)/home/_component/TabProvider";
 import {
   HydrationBoundary,
@@ -24,7 +24,7 @@ export default async function Home() {
         <TabProvider>
           <Tab />
           <PostForm />
-          <PostRecommends />
+          <TabDecider />
         </TabProvider>
       </HydrationBoundary>
     </main>

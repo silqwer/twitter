@@ -1,9 +1,11 @@
 "use client";
+
+import { TabContext } from "@/app/(afterLogin)/home/_component/TabProvider";
+import { useContext } from "react";
 import style from "./tab.module.css";
-import { useState } from "react";
 
 export default function Tab() {
-  const [tab, setTab] = useState("rec");
+  const { tab, setTab } = useContext(TabContext);
 
   const onClickRec = () => {
     setTab("rec");
@@ -16,14 +18,14 @@ export default function Tab() {
     <div className={style.homeFixed}>
       <div className={style.homeText}>홈</div>
       <div className={style.homeTab}>
-        <div onClick={onClickRec}>
+        <button onClick={onClickRec}>
           추천
           <div className={style.tabIndicator} hidden={tab === "fol"}></div>
-        </div>
-        <div onClick={onClickFol}>
+        </button>
+        <button onClick={onClickFol}>
           팔로우 중
           <div className={style.tabIndicator} hidden={tab === "rec"}></div>
-        </div>
+        </button>
       </div>
     </div>
   );
