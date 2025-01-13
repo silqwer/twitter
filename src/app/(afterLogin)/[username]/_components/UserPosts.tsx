@@ -1,12 +1,12 @@
-import React from "react";
 import { Post as PostItem } from "@/types/Post";
+import { useQuery } from "@tanstack/react-query";
+import { getUserPosts } from "@/app/(afterLogin)/[username]/_lib/getUserPosts";
+import Post from "@/app/(afterLogin)/_component/Post";
+import { useQueryClient } from "@tanstack/react-query";
+
 type Props = {
   username: string;
 };
-import { useQuery } from "@tanstack/react-query";
-import { getUserPosts } from "../_lib/getUserPosts";
-import Post from "@/app/(afterLogin)/_component/Post";
-import { useQueryClient } from "@tanstack/react-query";
 
 export default function UserPosts({ username }: Props) {
   const { data: posts } = useQuery<
@@ -27,4 +27,6 @@ export default function UserPosts({ username }: Props) {
   if (user) {
     return posts?.map((post) => <Post key={post.postId} post={post} />);
   }
+
+  return null;
 }
