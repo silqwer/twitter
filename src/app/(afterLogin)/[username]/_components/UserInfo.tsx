@@ -31,25 +31,23 @@ export default function UserInfo({ username }: Props) {
           <h3 className={style.headerTitle}>프로필</h3>
         </div>
         <div className={style.userZone}>
-          <div className={style.userImage}>
-            <img src={undefined} alt={username} />
-          </div>
+          <div className={style.userImage}></div>
           <div className={style.userName}>
             <div>@{username}</div>
           </div>
-          <div
-            style={{
-              height: 100,
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-              fontSize: 31,
-              fontWeight: "bold",
-              display: "flex",
-            }}
-          >
-            계정이 존재하지 않음
-          </div>
+        </div>
+        <div
+          style={{
+            height: 100,
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            fontSize: 31,
+            fontWeight: "bold",
+            display: "flex",
+          }}
+        >
+          계정이 존재하지 않음
         </div>
       </>
     );
