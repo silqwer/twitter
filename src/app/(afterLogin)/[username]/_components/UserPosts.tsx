@@ -6,6 +6,7 @@ type Props = {
 import { useQuery } from "@tanstack/react-query";
 import { getUserPosts } from "../_lib/getUserPosts";
 import Post from "@/app/(afterLogin)/_component/Post";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function UserPosts({ username }: Props) {
   const { data: posts } = useQuery<
@@ -19,5 +20,11 @@ export default function UserPosts({ username }: Props) {
     staleTime: 1000 * 60,
     gcTime: 1000 * 300,
   });
-  return posts?.map((post) => <Post key={post.postId} post={post} />);
+
+  const queryClient = useQueryClient();
+  const user = queryClient.getQueryData(["user", username]);
+
+  if (user) {
+    return posts?.map((post) => <Post key={post.postId} post={post} />);
+  }
 }
