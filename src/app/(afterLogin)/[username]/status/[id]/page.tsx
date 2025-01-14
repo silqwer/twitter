@@ -37,9 +37,9 @@ export default async function page({ params }: Props) {
           <h3 className={style.headerTitle}>게시하기</h3>
         </div>
         <SingPosts id={id} />
-        <CommentForm />
+        <CommentForm id={id} />
         <div>
-          <Comments />
+          <Comments id={id} />
         </div>
       </HydrationBoundary>
     </div>

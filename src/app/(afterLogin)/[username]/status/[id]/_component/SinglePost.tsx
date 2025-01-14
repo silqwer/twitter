@@ -1,13 +1,13 @@
 import { Post as PostItem } from "@/types/Post";
 import { useQuery } from "@tanstack/react-query";
-import { getSingPosts } from "@/app/(afterLogin)/[username]/status/[id]/_lib/getSingPost";
 import Post from "@/app/(afterLogin)/_component/Post";
-
+import { getSinglePost } from "@/app/(afterLogin)/[username]/status/[id]/_lib/getSinglePost";
 type Props = {
   id: string;
+  noImage?: boolean;
 };
 
-export default function SingPosts({ id }: Props) {
+export default function SingPosts({ id, noImage }: Props) {
   const { data: post, error } = useQuery<
     PostItem,
     object,
@@ -15,7 +15,7 @@ export default function SingPosts({ id }: Props) {
     [_1: string, _2: string]
   >({
     queryKey: ["posts", id],
-    queryFn: getSingPosts,
+    queryFn: getSinglePost,
     staleTime: 1000 * 60,
     gcTime: 1000 * 300,
   });
@@ -42,5 +42,5 @@ export default function SingPosts({ id }: Props) {
     return null;
   }
 
-  return <Post post={post} />;
+  return <Post post={post} noImage={noImage} />;
 }
