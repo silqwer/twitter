@@ -10,7 +10,7 @@ type Props = {
 export default function SingPosts({ id, noImage }: Props) {
   const { data: post, error } = useQuery<
     PostItem,
-    object,
+    Error,
     PostItem,
     [_1: string, _2: string]
   >({
