@@ -12,6 +12,7 @@ export const authOptions = {
         username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
+
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       async authorize(credentials, req) {
         if (!credentials) {
@@ -37,9 +38,13 @@ export const authOptions = {
         }
 
         const response = await authResponse.json();
+        console.log("response.data:", response.data);
 
-        if (response && response.data) {
-          const { id, nickname, image } = response.data;
+        if (response) {
+          const { id, nickname, image } = response;
+          console.log("id:", id);
+          console.log("nickname:", nickname);
+          console.log("image:", image);
           return {
             id,
             name: nickname,
